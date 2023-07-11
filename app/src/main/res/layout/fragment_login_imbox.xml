@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".LoginImboxFragment">
+
+    <ImageButton
+        android:id="@+id/btn_atras"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/fondo_transparent_linea"
+        android:contentDescription="Boton atrás"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:src="@drawable/ico_atras"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/title_login_correo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/title_iniciar_sesion"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_atras" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txt_input_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="50dp"
+        android:hint="@string/txt_correo"
+        android:outlineAmbientShadowColor="@color/black"
+        android:textColorHint="@color/black"
+        app:boxStrokeColor="@color/active_text"
+        app:boxStrokeErrorColor="@color/error_text"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:errorIconTint="@color/error_text"
+        app:errorTextColor="@color/error_text"
+        app:helperText="@string/txt_requerit"
+        app:helperTextTextColor="@color/error_text"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_login_correo"
+        app:placeholderTextColor="@color/black"
+        app:startIconDrawable="@drawable/ico_correo"
+        app:startIconTint="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txt_input_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="50dp"
+        android:hint="@string/txt_password"
+        android:outlineAmbientShadowColor="@color/black"
+        android:textColorHint="@color/black"
+        app:boxStrokeColor="@color/active_text"
+        app:boxStrokeErrorColor="@color/error_text"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/black"
+        app:errorIconTint="@color/error_text"
+        app:errorTextColor="@color/error_text"
+        app:helperText="@string/txt_requerit"
+        app:helperTextTextColor="@color/error_text"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/txt_input_layout_1"
+        app:layout_constraintStart_toStartOf="@id/txt_input_layout_1"
+        app:layout_constraintTop_toBottomOf="@+id/txt_input_layout_1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_iniciar_sesion"
+        android:layout_width="315dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="10dp"
+        android:contextClickable="true"
+        app:cardBackgroundColor="@color/btn_principal"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/txt_input_layout_2"
+        app:layout_constraintStart_toStartOf="@+id/txt_input_layout_2"
+        app:layout_constraintTop_toBottomOf="@+id/txt_input_layout_2">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/txt_iniciar_sesion"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/btn_iniciar_sesion"
+        app:layout_constraintStart_toStartOf="@+id/btn_iniciar_sesion"
+        app:layout_constraintTop_toBottomOf="@+id/btn_iniciar_sesion">
+
+        <TextView
+            android:id="@+id/btn_olvido_contrasena"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:text="@string/olvido_contraseña"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="169dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/black" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

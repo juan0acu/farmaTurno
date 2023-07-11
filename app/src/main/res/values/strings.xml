@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Farma Turno</string>
+    <string name="title_principal">Bienvenido a Farma Turno</string>
+    <string name="sub_title_principal">La app donde podrás ver las farmacias de turno de tu localidad.</string>
+    <string name="btn_ingresar_correo">Continuar con Correo electrónico</string>
+    <string name="btn_ingresar_fb">Continuar co tu Cuenta Facebook</string>
+    <string name="btn_ingresar_gmail">Continuar con tu Cuenta Gmail</string>
+    <string name="sin_cuenta">¿No tienes una cuenta?</string>
+    <string name="olvido_contraseña">¿Olvidaste tu contraseña?</string>
+    <string name="btn_sin_cuenta">Registrate</string>
+    <string name="txt_correo">Correo eléctronico</string>
+    <string name="txt_password">Contraseña</string>
+    <string name="txt_requerit">Requerido *</string>
+    <string name="title_iniciar_sesion">Inicia sesión en Farma Turno</string>
+    <string name="txt_iniciar_sesion">Iniciar sesión</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
