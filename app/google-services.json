@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "822015025460",
+    "project_id": "farmaturno-9afee",
+    "storage_bucket": "farmaturno-9afee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822015025460:android:13ccd856d25cb266670561",
+        "android_client_info": {
+          "package_name": "com.example.farmaturno"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822015025460-kub31e5v61jc1kedfji4i51e39i6661k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCEHFnlcZytUziGsyz3foB-1ijs27PmcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822015025460-kub31e5v61jc1kedfji4i51e39i6661k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

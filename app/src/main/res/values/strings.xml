@@ -3,7 +3,7 @@
     <string name="title_principal">Bienvenido a Farma Turno</string>
     <string name="sub_title_principal">La app donde podrás ver las farmacias de turno de tu localidad.</string>
     <string name="btn_ingresar_correo">Continuar con Correo electrónico</string>
-    <string name="btn_ingresar_fb">Continuar co tu Cuenta Facebook</string>
+    <string name="btn_ingresar_fb">Test falla Crahlytics</string>
     <string name="btn_ingresar_gmail">Continuar con tu Cuenta Gmail</string>
     <string name="sin_cuenta">¿No tienes una cuenta?</string>
     <string name="olvido_contraseña">¿Olvidaste tu contraseña?</string>
