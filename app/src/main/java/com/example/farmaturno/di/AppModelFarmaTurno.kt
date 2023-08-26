@@ -23,7 +23,7 @@ object AppModelFarmaTurno {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient):Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://midas.minsal.cl/farmacia_v2/WS")
+            .baseUrl("https://midas.minsal.cl/farmacia_v2/WS/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface FarmaApiService {
 
-    @GET("/getLocalesTurnos.php")
+    @GET("getLocalesTurnos.php")
     fun getFarmas(): Call<List<FarmaDataResponse>>
 }
