@@ -15,4 +15,10 @@
     <string name="txt_iniciar_sesion">Iniciar sesión</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="local_name">CRUZ VERDE</string>
+    <string name="local_direction">Av. Normandie Nº2017</string>
+    <string name="time_open">09:00:00</string>
+    <string name="time_close">8:59:00</string>
+    <string name="num_local">+56322932008</string>
+
 </resources>
