@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.farmaturno.data.model.FarmaDataResponse
 import com.example.farmaturno.data.retrofit.FarmaApiService
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import retrofit2.Call
@@ -31,12 +32,16 @@ class HomePrincipalViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     _farmaciasLiveData.value = response.body()
                 } else {
-                    // Manejar el caso de error aquí
+                    val errorMessage = "Error en la solicitud a la API"
+                    FirebaseCrashlytics.getInstance().log(errorMessage)
+                    FirebaseCrashlytics.getInstance().recordException(Throwable(errorMessage))
                 }
             }
 
             override fun onFailure(call: Call<List<FarmaDataResponse>>, t: Throwable) {
-                // Manejar el caso de error aquí
+                val errorMessage = "Error en la solicitud a la API: ${t.message}"
+                FirebaseCrashlytics.getInstance().log(errorMessage)
+                FirebaseCrashlytics.getInstance().recordException(Throwable(errorMessage))
             }
         })
     }
