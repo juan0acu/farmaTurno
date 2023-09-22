@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.farmaturno.SplashFragment"
+        android:name="com.example.farmaturno.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -16,16 +16,24 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.farmaturno.LoginFragment"
+        android:name="com.example.farmaturno.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_loginImboxFragment"
             app:destination="@id/loginImboxFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homePrincipalFragment"
+            app:destination="@id/homePrincipalFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginImboxFragment"
-        android:name="com.example.farmaturno.LoginImboxFragment"
+        android:name="com.example.farmaturno.ui.login.LoginImboxFragment"
         android:label="fragment_login_imbox"
         tools:layout="@layout/fragment_login_imbox" />
+    <fragment
+        android:id="@+id/homePrincipalFragment"
+        android:name="com.example.farmaturno.ui.home.HomePrincipalFragment"
+        android:label="fragment_home_principal"
+        tools:layout="@layout/fragment_home_principal" />
 </navigation>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layoutDescription="@xml/fragment_splash_scene"
     android:background="@color/white"
-    tools:context=".SplashFragment">
+    tools:context=".ui.splash.SplashFragment">
 
     <ImageView
         android:id="@+id/imageView"
