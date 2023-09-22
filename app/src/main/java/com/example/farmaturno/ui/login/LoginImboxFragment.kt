@@ -1,4 +1,4 @@
-package com.example.farmaturno
+package com.example.farmaturno.ui.login
 
 import android.os.Bundle
 import android.text.Editable
