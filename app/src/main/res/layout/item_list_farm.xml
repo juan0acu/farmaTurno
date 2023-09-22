@@ -78,7 +78,7 @@
                 <TextView
                     android:id="@+id/time_open_farm"
                     android:layout_width="0dp"
-                    android:layout_weight="1.3"
+                    android:layout_weight="1.2"
                     android:layout_height="wrap_content"
                     tools:text="@string/time_open"
                     android:layout_marginTop="5dp"
@@ -100,7 +100,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.6"
                 android:text="Cierre:"
                 android:layout_marginTop="5dp"
                 android:textSize="14sp"
