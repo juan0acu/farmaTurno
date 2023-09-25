@@ -1,6 +1,7 @@
 package com.example.farmaturno.di
 
 import com.example.farmaturno.data.retrofit.FarmaApiService
+import com.example.farmaturno.di.constant.Config
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,7 @@ object AppModelFarmaTurno {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient):Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://midas.minsal.cl/farmacia_v2/WS/")
+            .baseUrl(Config.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

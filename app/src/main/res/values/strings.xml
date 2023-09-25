@@ -21,4 +21,6 @@
     <string name="time_close">8:59:00</string>
     <string name="num_local">+56322932008</string>
 
+    <string name="error_api">Error en la solicitud a la API</string>
+
 </resources>

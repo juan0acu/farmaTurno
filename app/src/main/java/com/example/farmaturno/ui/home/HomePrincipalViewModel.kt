@@ -3,6 +3,7 @@ package com.example.farmaturno.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.farmaturno.R
 import com.example.farmaturno.data.model.FarmaDataResponse
 import com.example.farmaturno.data.retrofit.FarmaApiService
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -32,7 +33,7 @@ class HomePrincipalViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     _farmaciasLiveData.value = response.body()
                 } else {
-                    val errorMessage = "Error en la solicitud a la API"
+                    val errorMessage = R.string.error_api.toString()
                     FirebaseCrashlytics.getInstance().log(errorMessage)
                     FirebaseCrashlytics.getInstance().recordException(Throwable(errorMessage))
                 }
