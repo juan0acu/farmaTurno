@@ -1,11 +1,17 @@
 package com.example.farmaturno.ui.home
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.farmaturno.R
 import com.example.farmaturno.data.model.FarmaDataResponse
 import com.example.farmaturno.data.retrofit.FarmaApiService
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.gms.tasks.Task
+import com.google.android.libraries.places.api.Places
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,8 +21,11 @@ import retrofit2.Response
 
 @HiltViewModel
 class HomePrincipalViewModel @Inject constructor(
-    private val apiService: FarmaApiService
+    private val apiService: FarmaApiService,
+    app: Application
 ): ViewModel() {
+    private val placesClient: PlacesClient = Places.createClient(app)
+
     private val _farmaciasLiveData = MutableLiveData<List<FarmaDataResponse>>()
 
     val farmaciasLiveData: LiveData<List<FarmaDataResponse>>
@@ -45,5 +54,13 @@ class HomePrincipalViewModel @Inject constructor(
                 FirebaseCrashlytics.getInstance().recordException(Throwable(errorMessage))
             }
         })
+    }
+
+    fun getAutocompletePredictions(query: String?): Task<FindAutocompletePredictionsResponse> {
+        val request = FindAutocompletePredictionsRequest.builder()
+            .setQuery(query)
+            .build()
+
+        return placesClient.findAutocompletePredictions(request)
     }
 }

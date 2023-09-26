@@ -1,7 +1,11 @@
 package com.example.farmaturno.di
 
+import android.app.Application
 import com.example.farmaturno.data.retrofit.FarmaApiService
 import com.example.farmaturno.di.constant.Config
+import com.example.farmaturno.ui.home.HomePrincipalViewModel
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.net.PlacesClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
