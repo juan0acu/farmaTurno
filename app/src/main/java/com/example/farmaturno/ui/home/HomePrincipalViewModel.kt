@@ -7,11 +7,13 @@ import androidx.lifecycle.ViewModel
 import com.example.farmaturno.R
 import com.example.farmaturno.data.model.FarmaDataResponse
 import com.example.farmaturno.data.retrofit.FarmaApiService
+import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.AutocompletePrediction
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -23,7 +25,7 @@ import retrofit2.Response
 class HomePrincipalViewModel @Inject constructor(
     private val apiService: FarmaApiService,
     app: Application
-): ViewModel() {
+) : ViewModel() {
     private val placesClient: PlacesClient = Places.createClient(app)
 
     private val _farmaciasLiveData = MutableLiveData<List<FarmaDataResponse>>()
@@ -31,7 +33,11 @@ class HomePrincipalViewModel @Inject constructor(
     val farmaciasLiveData: LiveData<List<FarmaDataResponse>>
         get() = _farmaciasLiveData
 
-    fun initialLocalTurnos(){
+    private val _suggestionsLiveData = MutableLiveData<List<AutocompletePrediction>?>()
+    val suggestionsLiveData: MutableLiveData<List<AutocompletePrediction>?>
+        get() = _suggestionsLiveData
+
+    fun initialLocalTurnos() {
         val call = apiService.getFarmas()
 
         call.enqueue(object : Callback<List<FarmaDataResponse>> {
@@ -56,11 +62,33 @@ class HomePrincipalViewModel @Inject constructor(
         })
     }
 
-    fun getAutocompletePredictions(query: String?): Task<FindAutocompletePredictionsResponse> {
+   /* fun getAutocompletePredictions(query: String?): Task<FindAutocompletePredictionsResponse> {
         val request = FindAutocompletePredictionsRequest.builder()
             .setQuery(query)
             .build()
 
         return placesClient.findAutocompletePredictions(request)
+    }*/
+
+    fun getAutocompletePredictions(query: String?): Task<FindAutocompletePredictionsResponse> {
+        val request = FindAutocompletePredictionsRequest.builder()
+            .setQuery(query)
+            .build()
+
+       return placesClient.findAutocompletePredictions(request)
+            .addOnCompleteListener { autocompletePredictions ->
+                if (autocompletePredictions.isSuccessful) {
+                    val predictions: List<AutocompletePrediction>? =
+                        autocompletePredictions.result?.autocompletePredictions
+                    if (predictions != null) {
+                        // Emitir las sugerencias al LiveData
+                        _suggestionsLiveData.postValue(predictions)
+                    }
+                } else {
+                    val exception: ApiException? =
+                        autocompletePredictions.exception as ApiException?
+                    exception?.printStackTrace()
+                }
+            }
     }
 }

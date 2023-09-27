@@ -9,9 +9,11 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.farmaturno.databinding.FragmentHomePrincipalBinding
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
 import com.example.farmaturno.ui.home.recyclerview.FarmaAdapter
+import com.example.farmaturno.ui.home.recyclerview.SuggestionsAdapter
 import com.google.android.gms.common.api.ApiException
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,6 +55,14 @@ class HomePrincipalFragment : Fragment() {
         adapter = FarmaAdapter(emptyList())
         binding.rvFarma.adapter = adapter
         binding.rvFarma.layoutManager = LinearLayoutManager(requireContext())
+
+        //Sugerencias
+        val suggestionsAdapter = SuggestionsAdapter(emptyList())
+        // Obtener una referencia al RecyclerView
+        val suggestionsRecyclerView: RecyclerView = binding.suggestionsRecyclerView
+        // Configurar el adaptador del RecyclerView
+        suggestionsRecyclerView.adapter = suggestionsAdapter
+        suggestionsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun init_observables(){
@@ -60,6 +70,12 @@ class HomePrincipalFragment : Fragment() {
             binding.progressBar.isVisible = false
             adapter.listadoFarmacias = farmacias
             adapter.notifyDataSetChanged()
+        }
+
+        viewModel.suggestionsLiveData.observe(viewLifecycleOwner) { suggestions ->
+            // Actualizar el adaptador del RecyclerView con las nuevas sugerencias
+            val suggestionsAdapter = binding.suggestionsRecyclerView.adapter as SuggestionsAdapter
+            suggestionsAdapter.updateData(suggestions)
         }
     }
 
@@ -78,7 +94,7 @@ class HomePrincipalFragment : Fragment() {
                                 val predictions: FindAutocompletePredictionsResponse? =
                                     autocompletePredictions.result
                                 if (predictions != null) {
-                                    // Aquí puedes mostrar las sugerencias en un ListView o RecyclerView
+                                    binding.suggestionsRecyclerView.visibility = View.VISIBLE
                                 }
                             } else {
                                 val exception: ApiException? =
@@ -86,6 +102,9 @@ class HomePrincipalFragment : Fragment() {
                                 exception?.printStackTrace()
                             }
                         }
+                }else {
+                    // Ocultar el RecyclerView si no hay texto en el SearchView
+                    binding.suggestionsRecyclerView.visibility = View.GONE
                 }
                 return true
             }
