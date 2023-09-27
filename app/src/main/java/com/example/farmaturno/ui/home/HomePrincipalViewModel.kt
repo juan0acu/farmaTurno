@@ -14,6 +14,7 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompletePrediction
+import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -73,6 +74,8 @@ class HomePrincipalViewModel @Inject constructor(
     fun getAutocompletePredictions(query: String?): Task<FindAutocompletePredictionsResponse> {
         val request = FindAutocompletePredictionsRequest.builder()
             .setQuery(query)
+            .setCountries("CL")
+            .setTypeFilter(TypeFilter.CITIES)
             .build()
 
        return placesClient.findAutocompletePredictions(request)
