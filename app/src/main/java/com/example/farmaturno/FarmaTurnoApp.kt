@@ -8,6 +8,7 @@ import dagger.hilt.android.HiltAndroidApp
 class FarmaTurnoApp: Application(){
     override fun onCreate() {
         super.onCreate()
-        Places.initialize(applicationContext, "AIzaSyDV-1kOWik8IwuvBG8vMstuLhHNnpcRLrs")
+        val apikey = BuildConfig.MAPS_API_KEY
+        Places.initialize(applicationContext, apikey)
     }
 }
