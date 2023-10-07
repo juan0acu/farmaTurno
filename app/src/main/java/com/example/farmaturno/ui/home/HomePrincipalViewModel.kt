@@ -63,29 +63,41 @@ class HomePrincipalViewModel @Inject constructor(
         })
     }
 
-   /* fun getAutocompletePredictions(query: String?): Task<FindAutocompletePredictionsResponse> {
-        val request = FindAutocompletePredictionsRequest.builder()
-            .setQuery(query)
-            .build()
-
-        return placesClient.findAutocompletePredictions(request)
-    }*/
-
     fun getAutocompletePredictions(query: String?): Task<FindAutocompletePredictionsResponse> {
         val request = FindAutocompletePredictionsRequest.builder()
             .setQuery(query)
-            .setCountries("CL")
+            .setCountry("CL") // CL es el código ISO 3166-1 para Chile
             .setTypeFilter(TypeFilter.CITIES)
             .build()
 
-       return placesClient.findAutocompletePredictions(request)
+        return placesClient.findAutocompletePredictions(request)
             .addOnCompleteListener { autocompletePredictions ->
                 if (autocompletePredictions.isSuccessful) {
                     val predictions: List<AutocompletePrediction>? =
                         autocompletePredictions.result?.autocompletePredictions
                     if (predictions != null) {
-                        // Emitir las sugerencias al LiveData
-                        _suggestionsLiveData.postValue(predictions)
+                        // Procesar las sugerencias para eliminar el país
+                        val cityPredictions = predictions.map { prediction ->
+                            val fullText = prediction.getFullText(null).toString()
+                            val cityName =
+                                fullText.substringBefore(",") // Obtener solo el nombre de la ciudad
+                            val placeId = prediction.placeId
+                            val primaryText = prediction.getPrimaryText(null).toString()
+                            val secondaryText = prediction.getSecondaryText(null).toString()
+
+                            // Crear una instancia de AutocompletePrediction.Builder
+                            val predictionBuilder = AutocompletePrediction.builder(placeId)
+
+                            // Establecer los valores en el builder
+                            predictionBuilder.setFullText(cityName)
+                            predictionBuilder.setPrimaryText(primaryText)
+                            predictionBuilder.setSecondaryText(secondaryText)
+
+                            // Construir la instancia de AutocompletePrediction
+                            predictionBuilder.build()
+                        }
+                        // Emitir las sugerencias de ciudades al LiveData
+                        _suggestionsLiveData.postValue(cityPredictions)
                     }
                 } else {
                     val exception: ApiException? =
@@ -93,5 +105,6 @@ class HomePrincipalViewModel @Inject constructor(
                     exception?.printStackTrace()
                 }
             }
+
     }
 }
