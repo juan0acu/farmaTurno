@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomePrincipalFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomePrincipalBinding
+    lateinit var binding: FragmentHomePrincipalBinding
     private lateinit var viewModel: HomePrincipalViewModel
     private lateinit var adapter: FarmaAdapter
 
@@ -57,11 +57,11 @@ class HomePrincipalFragment : Fragment() {
         binding.rvFarma.layoutManager = LinearLayoutManager(requireContext())
 
         //Sugerencias
-        val suggestionsAdapter = SuggestionsAdapter(emptyList())
+        val suggestionsAdapter = SuggestionsAdapter(emptyList(),binding)
         // Obtener una referencia al RecyclerView
         val suggestionsRecyclerView: RecyclerView = binding.suggestionsRecyclerView
         // Configurar el adaptador del RecyclerView
-        suggestionsRecyclerView.adapter = suggestionsAdapter
+        binding.suggestionsRecyclerView.adapter = suggestionsAdapter
         suggestionsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
@@ -82,6 +82,11 @@ class HomePrincipalFragment : Fragment() {
     private fun init_listener(){
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    // Actualizar la localidad buscada en el ViewModel
+                    viewModel.setSearchedLocalidad(query)
+                    return true
+                }
                 return false
             }
 

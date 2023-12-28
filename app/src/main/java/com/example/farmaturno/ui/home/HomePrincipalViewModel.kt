@@ -38,6 +38,10 @@ class HomePrincipalViewModel @Inject constructor(
     val suggestionsLiveData: MutableLiveData<List<AutocompletePrediction>?>
         get() = _suggestionsLiveData
 
+    private val _searchedLocalidad = MutableLiveData<String>()
+    val searchedLocalidad: LiveData<String>
+        get() = _searchedLocalidad
+
     fun initialLocalTurnos() {
         val call = apiService.getFarmas()
 
@@ -47,7 +51,12 @@ class HomePrincipalViewModel @Inject constructor(
                 response: Response<List<FarmaDataResponse>>
             ) {
                 if (response.isSuccessful) {
-                    _farmaciasLiveData.value = response.body()
+                   // _farmaciasLiveData.value = response.body()
+                    val searchedLocalidad = _searchedLocalidad.value
+                    val farmaciasSearch = response.body()?.filter { farmacia ->
+                        searchedLocalidad.isNullOrEmpty() || farmacia.localidad_name.equals(searchedLocalidad, ignoreCase = true)
+                    }
+                    _farmaciasLiveData.value = farmaciasSearch ?: emptyList()
                 } else {
                     val errorMessage = R.string.error_api.toString()
                     FirebaseCrashlytics.getInstance().log(errorMessage)
@@ -106,5 +115,10 @@ class HomePrincipalViewModel @Inject constructor(
                 }
             }
 
+    }
+
+    fun setSearchedLocalidad(localidad: String) {
+        _searchedLocalidad.value = localidad
+        initialLocalTurnos()
     }
 }
