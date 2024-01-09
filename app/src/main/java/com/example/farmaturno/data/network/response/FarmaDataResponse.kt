@@ -1,5 +1,6 @@
-package com.example.farmaturno.data.model
+package com.example.farmaturno.data.network.response
 
+import com.example.farmaturno.domain.model.FarmaTurnoModel
 import com.google.gson.annotations.SerializedName
 
 data class FarmaDataResponse(
@@ -17,5 +18,25 @@ data class FarmaDataResponse(
     @SerializedName("local_telefono") val farmacia_telefono: String,
     @SerializedName("local_lat") val farmacia_latitud: String,
     @SerializedName("local_lng") val farmacia_longitud: String,
-    @SerializedName("funcionamiento_dia") val dia_funcionamiento: String,
-)
+    @SerializedName("funcionamiento_dia") val dia_funcionamiento: String
+) {
+    fun toDomain(): FarmaTurnoModel {
+        return FarmaTurnoModel(
+            fecha_actual = fecha_actual,
+            id_farmacia = id_farmacia,
+            id_region = id_region,
+            id_comuna = id_comuna,
+            id_localidad = id_localidad,
+            farmacia_name = farmacia_name,
+            comuna_name = comuna_name,
+            localidad_name = localidad_name,
+            farmacia_direccion = farmacia_direccion,
+            farmacia_apertura = farmacia_apertura,
+            farmacia_cierre = farmacia_cierre,
+            farmacia_telefono = farmacia_telefono,
+            farmacia_latitud = farmacia_latitud,
+            farmacia_longitud = farmacia_longitud,
+            dia_funcionamiento = dia_funcionamiento
+        )
+    }
+}

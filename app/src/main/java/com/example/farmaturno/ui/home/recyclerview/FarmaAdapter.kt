@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.farmaturno.R
-import com.example.farmaturno.data.model.FarmaDataResponse
+import com.example.farmaturno.data.network.response.FarmaDataResponse
+import com.example.farmaturno.domain.model.FarmaTurnoModel
 
-class FarmaAdapter (var listadoFarmacias: List<FarmaDataResponse>):RecyclerView.Adapter<FarmViewHolder>() {
+class FarmaAdapter (var listadoFarmacias: List<FarmaTurnoModel>):RecyclerView.Adapter<FarmViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FarmViewHolder {
         return FarmViewHolder(
