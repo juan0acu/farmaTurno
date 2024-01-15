@@ -1,5 +1,7 @@
 package com.example.farmaturno.domain.model
 
+import com.example.farmaturno.domain.entity.FarmaciasTurno
+
 
 data class FarmaTurnoModel(
     val fecha_actual: String,
@@ -17,4 +19,27 @@ data class FarmaTurnoModel(
     val farmacia_latitud: String,
     val farmacia_longitud: String,
     val dia_funcionamiento: String
-)
+) {
+    fun toFarmaciasTurno(): FarmaciasTurno {
+        return FarmaciasTurno(
+            id = 0,
+            fecha_actual = fecha_actual,
+            id_farmacia = id_farmacia,
+            id_region = id_region,
+            id_comuna = id_comuna,
+            id_localidad = id_localidad,
+            farmacia_name = farmacia_name,
+            comuna_name = comuna_name,
+            localidad_name = localidad_name,
+            farmacia_direccion = farmacia_direccion,
+            farmacia_apertura = farmacia_apertura,
+            farmacia_cierre = farmacia_cierre,
+            farmacia_telefono = farmacia_telefono,
+            farmacia_latitud = farmacia_latitud,
+            farmacia_longitud = farmacia_longitud,
+            dia_funcionamiento = dia_funcionamiento
+        ).apply {
+            id += 1
+        }
+    }
+}
