@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class GetFarmaTurnosUseCase @Inject constructor(private val repository: Repository) {
 
-    suspend operator fun invoke() = repository.getFarmas()
+    suspend operator fun invoke() = repository.getFarmasData()
 
 }

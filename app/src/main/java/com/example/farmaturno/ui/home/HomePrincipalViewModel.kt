@@ -43,7 +43,7 @@ class HomePrincipalViewModel @Inject constructor(
             val result = withContext(Dispatchers.IO){
                 getFarmaTurnosUseCase.invoke()
             }
-            if (result!=null){
+            if (result.isNotEmpty()){
                 _state.value = HomeState.Success(result)
             }else{
                 _state.value = HomeState.Error("Error de Servicio")

@@ -64,4 +64,13 @@ class FarmaRepositoryImpl @Inject constructor(
     override suspend fun updateFarmacias(farmaciasTurno: List<FarmaciasTurno>, nuevaFecha: Long) {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getFarmasData(): List<FarmaTurnoModel> {
+        val localFarmaciasTurno = farmaciaDao.getAllFarmaciasModels()
+        return if (localFarmaciasTurno.isNotEmpty()){
+            localFarmaciasTurno
+        }else{
+            emptyList()
+        }
+    }
 }

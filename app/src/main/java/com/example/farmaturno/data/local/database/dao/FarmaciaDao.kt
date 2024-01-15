@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.farmaturno.data.local.database.entity.FarmaciasTurno
+import com.example.farmaturno.domain.model.FarmaTurnoModel
 
 @Dao
 interface FarmaciaDao {
@@ -16,4 +17,7 @@ interface FarmaciaDao {
 
     @Query("DELETE FROM farmaciasTurno")
     fun deleteAll()
+
+    @Query ("Select * FROM farmaciasTurno")
+    fun getAllFarmaciasModels():List<FarmaTurnoModel>
 }

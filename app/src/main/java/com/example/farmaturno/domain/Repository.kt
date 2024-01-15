@@ -10,4 +10,6 @@ interface Repository {
 
     suspend fun getFarmaciasLocal(): List<FarmaciaActualizada>
     suspend fun updateFarmacias(farmaciasTurno: List<FarmaciasTurno>, nuevaFecha:Long)
+
+    suspend fun getFarmasData(): List<FarmaTurnoModel>
 }
