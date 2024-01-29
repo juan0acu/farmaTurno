@@ -73,4 +73,17 @@ class FarmaRepositoryImpl @Inject constructor(
             emptyList()
         }
     }
+
+    override suspend fun getCiudadesAutoComplete(query: String): List<String> {
+        return farmaciaDao.getCiudadesAutoComplete("%$query%")
+    }
+
+    override suspend fun getFarmaciasComuna(query: String): List<FarmaTurnoModel>{
+        val localFarmaciasTurno = farmaciaDao.getFarmaciasComuna(query)
+        return if (localFarmaciasTurno.isNotEmpty()){
+            localFarmaciasTurno
+        }else{
+            emptyList()
+        }
+    }
 }

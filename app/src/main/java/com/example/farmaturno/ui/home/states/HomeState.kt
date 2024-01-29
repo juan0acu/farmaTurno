@@ -6,4 +6,5 @@ sealed class HomeState {
     object Loading : HomeState()
     data class Error(val error: String) : HomeState()
     data class Success(val listFarma: List<FarmaTurnoModel>?) : HomeState()
+    data class SuccessComunas(val listComunas: List<String>?) : HomeState()
 }
