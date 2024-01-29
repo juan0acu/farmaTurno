@@ -1,8 +1,10 @@
 package com.example.farmaturno.ui.home.recyclerview
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.farmaturno.R
@@ -10,9 +12,11 @@ import com.example.farmaturno.databinding.FragmentHomePrincipalBinding
 import com.google.android.libraries.places.api.model.AutocompletePrediction
 
 class SuggestionsAdapter(
-    private var suggestions: List<AutocompletePrediction>,
+    private var suggestions: List<String>,
     var binding: FragmentHomePrincipalBinding
 ) : RecyclerView.Adapter<SuggestionsAdapter.ViewHolder>() {
+
+    var suggestionsSelected = false
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val suggestionText: TextView = itemView.findViewById(R.id.suggestionText)
@@ -25,16 +29,11 @@ class SuggestionsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val suggestion = suggestions[position]
-        holder.suggestionText.text = suggestion.getFullText(null)
+        holder.suggestionText.text = suggestion
 
-        // Manejar la interacción con la sugerencia aquí, por ejemplo, al hacer clic en una sugerencia.
         holder.itemView.setOnClickListener {
-            // Acción cuando se hace clic en una sugerencia
-            // Puedes enviar la sugerencia seleccionada de vuelta al SearchView, por ejemplo.
-
-            val fullText = suggestion.getFullText(null)
-            // Establecer el texto de la sugerencia en el searchView
-            binding.searchView.setQuery(fullText, false)
+            suggestionsSelected = true
+            binding.searchView.setQuery(suggestion, false)
             binding.suggestionsRecyclerView.visibility = View.GONE
         }
     }
@@ -43,8 +42,12 @@ class SuggestionsAdapter(
         return suggestions.size
     }
 
-    fun updateData(newSuggestions: List<AutocompletePrediction>?) {
+    fun updateData(newSuggestions: List<String>?) {
         suggestions = newSuggestions ?: emptyList()
         notifyDataSetChanged()
+    }
+
+    fun resetSuggestionSelection(){
+        suggestionsSelected = false
     }
 }

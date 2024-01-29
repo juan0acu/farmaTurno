@@ -20,4 +20,10 @@ interface FarmaciaDao {
 
     @Query ("Select * FROM farmaciasTurno")
     fun getAllFarmaciasModels():List<FarmaTurnoModel>
+
+    @Query("SELECT DISTINCT comuna_name FROM farmaciasTurno WHERE comuna_name LIKE:query")
+    fun getCiudadesAutoComplete(query: String):List<String>
+
+    @Query("SELECT * FROM farmaciasTurno WHERE comuna_name=:query")
+    fun getFarmaciasComuna(query: String):List<FarmaTurnoModel>
 }

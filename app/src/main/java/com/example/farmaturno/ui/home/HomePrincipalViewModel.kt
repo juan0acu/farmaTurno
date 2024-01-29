@@ -5,10 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.Query
 import com.example.farmaturno.R
 import com.example.farmaturno.data.network.response.FarmaDataResponse
 import com.example.farmaturno.data.network.retrofit.FarmaApiService
+import com.example.farmaturno.domain.usecase.GetComunasUseCase
 import com.example.farmaturno.domain.usecase.GetFarmaTurnosUseCase
+import com.example.farmaturno.domain.usecase.GetFarmaciasComuna
 import com.example.farmaturno.ui.home.states.HomeState
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
@@ -32,7 +35,9 @@ import retrofit2.Response
 
 @HiltViewModel
 class HomePrincipalViewModel @Inject constructor(
-    private val getFarmaTurnosUseCase: GetFarmaTurnosUseCase
+    private val getFarmaTurnosUseCase: GetFarmaTurnosUseCase,
+    private val getComunasUseCase: GetComunasUseCase,
+    private val getFarmaciasComuna: GetFarmaciasComuna
 ) : ViewModel() {
     private var _state = MutableStateFlow<HomeState>(HomeState.Loading)
     val state: StateFlow<HomeState> = _state
@@ -49,6 +54,39 @@ class HomePrincipalViewModel @Inject constructor(
                 _state.value = HomeState.Error("Error de Servicio")
                 FirebaseCrashlytics.getInstance().log("Error de Servicio")
                 FirebaseCrashlytics.getInstance().recordException(Throwable("Error de Servicio"))
+            }
+        }
+    }
+
+    fun getBuscarComunas(query: String){
+        viewModelScope.launch {
+            _state.value = HomeState.Loading
+
+            val result = withContext(Dispatchers.IO){
+                getComunasUseCase.invoke(query)
+            }
+            if (result.isNotEmpty()){
+                _state.value = HomeState.SuccessComunas(result)
+            }else {
+                _state.value = HomeState.Error("No se encuentra la ciudad indicada")
+            }
+        }
+    }
+
+    fun getFarmaciasComunas(query: String){
+        viewModelScope.launch {
+            _state.value = HomeState.Loading
+
+            val result = withContext(Dispatchers.IO){
+                getFarmaciasComuna.invoke(query)
+            }
+            if (result.isNotEmpty()){
+                println("Exitoso con las farmacias de comuna")
+                println(HomeState.Success(result))
+                _state.value = HomeState.Success(result)
+            }else{
+                println("Farmacias no Encontrada en esa comuna")
+                _state.value = HomeState.Error("Farmacias no Encontrada en esa comuna")
             }
         }
     }
