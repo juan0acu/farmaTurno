@@ -6,9 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.farmaturno.R
+import com.example.farmaturno.databinding.FragmentHomePrincipalBinding
 import com.google.android.libraries.places.api.model.AutocompletePrediction
 
-class SuggestionsAdapter(private var suggestions: List<AutocompletePrediction>) : RecyclerView.Adapter<SuggestionsAdapter.ViewHolder>() {
+class SuggestionsAdapter(
+    private var suggestions: List<AutocompletePrediction>,
+    var binding: FragmentHomePrincipalBinding
+) : RecyclerView.Adapter<SuggestionsAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val suggestionText: TextView = itemView.findViewById(R.id.suggestionText)
@@ -27,6 +31,11 @@ class SuggestionsAdapter(private var suggestions: List<AutocompletePrediction>) 
         holder.itemView.setOnClickListener {
             // Acción cuando se hace clic en una sugerencia
             // Puedes enviar la sugerencia seleccionada de vuelta al SearchView, por ejemplo.
+
+            val fullText = suggestion.getFullText(null)
+            // Establecer el texto de la sugerencia en el searchView
+            binding.searchView.setQuery(fullText, false)
+            binding.suggestionsRecyclerView.visibility = View.GONE
         }
     }
 
